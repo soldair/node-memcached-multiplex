@@ -1,7 +1,7 @@
 {
   "name": "memcached-multiplex",
   "description": "combine concurrent gets for the same keys into one get/multiget to the memcache server",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "repository": {
     "url": "git://github.com/soldair/node-memcached-multiplex.git"
   },
