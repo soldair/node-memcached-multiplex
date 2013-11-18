@@ -12,6 +12,8 @@ module.exports = function(server){
   o._getq = {};
   o.get = function(key,cb){
 
+    console.log('get for ',key);
+
     o.stats.get.calls++;
 
     if(o._getq[key]) return o._getq[key].push(cb);
@@ -22,6 +24,7 @@ module.exports = function(server){
     server.get(key,function(err,data){
       var q = o._getq[key];
       delete o._getq[key];
+      console.log('calling back ',q);
       while(q.length) q.shift()(err,data);
     }); 
   }
