@@ -12,8 +12,6 @@ module.exports = function(server){
   o._getq = {};
   o.get = function(key,cb){
 
-    console.log('get for ',key);
-
     o.stats.get.calls++;
 
     if(o._getq[key]) return o._getq[key].push(cb);
@@ -24,7 +22,6 @@ module.exports = function(server){
     server.get(key,function(err,data){
       var q = o._getq[key];
       delete o._getq[key];
-      console.log('calling back ',q);
       while(q.length) q.shift()(err,data);
     }); 
   }
@@ -57,8 +54,9 @@ module.exports = function(server){
         o._multiplexq[keys[i]] = id; 
         tofetch.push(keys[i]);
         o._multicalls[id].push([keys[i],id]);
-      }   
-      o.multires[id].c++;
+      }
+ 
+      o._multires[id].c++;
     }   
 
     if(!tofetch.length) return;
@@ -72,9 +70,9 @@ module.exports = function(server){
       delete o._multicalls[id];
 
       // i am done fetching. cleanup flags set that defined this id as fetching tofetch keys
-      for(var i=0;i<tofetch.length;++i){
+      for(var i=0;i<tofetch.length;++i) {
         delete o._multiplexq[tofetch[i]]; 
-      }   
+      }
 
       // send all callbacks.
       while(q.length){
@@ -83,8 +81,8 @@ module.exports = function(server){
         if(err) state.err = err;
         else state.res[waiting[0]] = data[waiting[0]];
         state.c--;
-        if(!state.c) cb(state.err,state.res); 
-      }   
+        if(!state.c) state.cb(state.err,state.res); 
+      }
     })  
 
   }
