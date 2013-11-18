@@ -1,8 +1,8 @@
 
-[![Build Status](https://secure.travis-ci.org/soldair/node-walkdir.png)](http://travis-ci.org/soldair/node-walkdir)
+[![Build Status](https://secure.travis-ci.org/soldair/node-memcached-multiplex.png)](http://travis-ci.org/soldair/node-memcached-multiplex)
 
-node-memcached-multiplex
-========================
+memcached-multiplex
+===================
 
 combine concurrent gets for the same keys into one get/multiget to the server
 
