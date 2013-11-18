@@ -28,8 +28,24 @@ getter.get('hi',function(err,v){
 })
 // make only one call to the memcache server
 
+// get a,b
+getter.getMulti(['a','b'],function(){
 
-getter.getMulti(['a','b']);// more splaining!
+});
+
+// get c but not b because im alredy fetching b
+getter.getMulti(['b','c'],function(){
+
+});
+
+// no call is made im already requesting the keys im searching for.
+getter.getMulti(['a','c'],function(){
+
+});
+
+// triggers 2 "getMulti" on the client driver.
+// one for keys ['a','b'] and one for just key ['c']
+
 
 ``` 
 
